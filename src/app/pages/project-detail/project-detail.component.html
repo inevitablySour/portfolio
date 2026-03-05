@@ -1,0 +1,210 @@
+@if (project) {
+  <article class="pt-32 pb-20 px-6">
+    <div class="max-w-4xl mx-auto">
+      <!-- Back Link -->
+      <div class="mb-8 fade-in-up" appInView>
+        <a
+          routerLink="/projects"
+          class="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back to Projects
+        </a>
+      </div>
+
+      <!-- Header -->
+      <header class="mb-8 fade-in-up" appInView [delay]="100">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <app-badge color="accent">{{ project.category }}</app-badge>
+          <span class="text-gray-500 text-sm">{{ project.year }}</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ project.title }}</h1>
+        <p class="text-xl text-gray-400">{{ project.shortDescription }}</p>
+      </header>
+
+      <!-- Hero Image Carousel -->
+      <div
+        class="glass rounded-2xl overflow-hidden mb-8 fade-in-up relative cursor-pointer select-none"
+        appInView [delay]="200"
+        (mousemove)="onHeroMouseMove()"
+        (mouseleave)="onHeroMouseLeave()"
+        (click)="project.gallery ? openLightbox(heroIndex) : null"
+      >
+        @if (project.gallery && project.gallery.length > 0) {
+          <div class="grid">
+            @for (img of project.gallery; track img; let i = $index) {
+              <img
+                [src]="img"
+                [alt]="project.title + ' screenshot ' + (i + 1)"
+                class="col-start-1 row-start-1 w-full object-cover transition-opacity duration-300"
+                [class.opacity-100]="i === heroIndex"
+                [class.opacity-0]="i !== heroIndex"
+              />
+            }
+          </div>
+          @if (project.gallery.length > 1) {
+            <!-- Left arrow -->
+            <button
+              class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white transition-opacity duration-200"
+              [class.opacity-100]="heroArrowsVisible"
+              [class.opacity-0]="!heroArrowsVisible"
+              (click)="heroPrev(); $event.stopPropagation()"
+            >
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <!-- Right arrow -->
+            <button
+              class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white transition-opacity duration-200"
+              [class.opacity-100]="heroArrowsVisible"
+              [class.opacity-0]="!heroArrowsVisible"
+              (click)="heroNext(); $event.stopPropagation()"
+            >
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <!-- Dots -->
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+              @for (img of project.gallery; track img; let i = $index) {
+                <span
+                  class="w-2 h-2 rounded-full transition-colors duration-200"
+                  [class.bg-white]="i === heroIndex"
+                  [class.bg-white/40]="i !== heroIndex"
+                ></span>
+              }
+            </div>
+          }
+        } @else {
+          <div class="aspect-video bg-gradient-to-br from-dark-700 to-dark-800 relative">
+            <div class="absolute inset-0 bg-gradient-to-br from-accent-500/20 to-purple-500/20"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span class="text-gray-500">Project Screenshot</span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap gap-4 mb-12 fade-in-up" appInView [delay]="300">
+        @if (project.links.live) {
+          <app-button [href]="project.links.live" target="_blank" rel="noopener noreferrer">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+            Live Demo
+          </app-button>
+        }
+        @if (project.links.github) {
+          <app-button [href]="project.links.github" target="_blank" rel="noopener noreferrer" variant="secondary">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+            </svg>
+            View Source
+          </app-button>
+        }
+      </div>
+
+      <!-- Description -->
+      <section class="mb-12 fade-in-up" appInView [delay]="400">
+        <h2 class="text-2xl font-bold mb-4">About this project</h2>
+        <p class="text-gray-300 leading-relaxed">{{ project.description }}</p>
+      </section>
+
+      <!-- Tech Stack -->
+      <section class="mb-12 fade-in-up" appInView [delay]="500">
+        <h2 class="text-2xl font-bold mb-4">Technologies Used</h2>
+        <div class="flex flex-wrap gap-3">
+          @for (tag of project.tags; track tag; let i = $index) {
+            <app-badge [color]="i % 2 === 0 ? 'accent' : 'purple'">{{ tag }}</app-badge>
+          }
+        </div>
+      </section>
+
+      <!-- Gallery -->
+      <section class="fade-in-up" appInView [delay]="600">
+        <h2 class="text-2xl font-bold mb-4">Gallery</h2>
+        <div class="grid grid-cols-2 gap-4">
+          @if (project.gallery && project.gallery.length > 1) {
+            @for (img of project.gallery.slice(1); track img; let i = $index) {
+              <div
+                class="glass rounded-xl overflow-hidden cursor-pointer group"
+                (click)="openLightbox(i + 1)"
+              >
+                <img [src]="img" [alt]="project.title + ' screenshot ' + (i + 2)" class="w-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              </div>
+            }
+          } @else {
+            @for (i of [1, 2, 3, 4]; track i) {
+              <div class="glass rounded-xl overflow-hidden aspect-video">
+                <div class="w-full h-full bg-gradient-to-br from-dark-700 to-dark-800 flex items-center justify-center">
+                  <span class="text-gray-500 text-sm">Screenshot {{ i }}</span>
+                </div>
+              </div>
+            }
+          }
+        </div>
+      </section>
+    </div>
+  </article>
+}
+
+<!-- Lightbox Overlay -->
+@if (lightboxOpen && project && project.gallery) {
+  <div
+    class="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center"
+    (click)="closeLightbox()"
+    (mousemove)="onLightboxMouseMove()"
+  >
+    <!-- Close button -->
+    <button
+      class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors z-10"
+      (click)="closeLightbox()"
+    >
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+
+    <!-- Left arrow -->
+    <button
+      class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-200 z-10"
+      [class.opacity-100]="lightboxArrowsVisible"
+      [class.opacity-0]="!lightboxArrowsVisible"
+      (click)="lightboxPrev($event)"
+    >
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+
+    <!-- Image -->
+    <div class="grid place-items-center" (click)="$event.stopPropagation()">
+      @for (img of project!.gallery!; track img; let i = $index) {
+        <img
+          [src]="img"
+          [alt]="project!.title + ' screenshot ' + (i + 1)"
+          class="col-start-1 row-start-1 max-h-[90vh] max-w-[90vw] object-contain rounded-lg transition-opacity duration-300"
+          [class.opacity-100]="i === lightboxIndex"
+          [class.opacity-0]="i !== lightboxIndex"
+        />
+      }
+    </div>
+
+    <!-- Right arrow -->
+    <button
+      class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-200 z-10"
+      [class.opacity-100]="lightboxArrowsVisible"
+      [class.opacity-0]="!lightboxArrowsVisible"
+      (click)="lightboxNext($event)"
+    >
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+    </button>
+
+    <!-- Counter -->
+    <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 items-center">
+      @for (img of project!.gallery!; track img; let i = $index) {
+        <span
+          class="w-2 h-2 rounded-full transition-colors duration-200"
+          [class.bg-white]="i === lightboxIndex"
+          [class.bg-white/30]="i !== lightboxIndex"
+        ></span>
+      }
+    </div>
+  </div>
+}

@@ -1,0 +1,136 @@
+<section class="pt-32 pb-20 px-6">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-16 fade-in-up" appInView>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        About <span class="gradient-text">Me</span>
+      </h1>
+      <p class="text-gray-400 max-w-2xl mx-auto">
+        Get to know more about who I am, what I do, and the technologies I work with.
+      </p>
+    </div>
+
+    <!-- Bio Section -->
+    <div class="grid lg:grid-cols-2 gap-8 mb-20 fade-in-up" appInView [delay]="200">
+      <!-- Photo Placeholder -->
+      <div class="glass rounded-3xl overflow-hidden aspect-square lg:aspect-auto">
+        <div
+          class="w-full h-full min-h-[400px] bg-gradient-to-br from-accent-500/20 to-purple-500/20 flex items-center justify-center"
+        >
+          <div class="text-center">
+            <div
+              class="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-accent-400 to-purple-500 flex items-center justify-center text-5xl font-bold text-dark-900 mb-4"
+            >
+              J
+            </div>
+            <span class="text-gray-400">Your Photo Here</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bio Text -->
+      <div class="flex flex-col justify-center">
+        <h2 class="text-3xl font-bold mb-4">
+          Hello! I'm <span class="gradient-text">Joel</span>
+        </h2>
+        <div class="space-y-4 text-gray-300">
+          <p>
+            I'm a passionate developer with a love for creating beautiful,
+            interactive digital experiences. My journey in web development started
+            with curiosity and has grown into a deep appreciation for the craft of
+            building software.
+          </p>
+          <p>
+            I specialize in front-end development with Angular, but I'm always
+            exploring new technologies and pushing the boundaries of what's
+            possible on the web. From WebGL graphics to complex state management,
+            I enjoy tackling challenging problems.
+          </p>
+          <p>
+            In my spare time I like to do photography, play video games, and explore new technologies.
+          </p>
+        </div>
+
+        <div class="flex gap-4 mt-8">
+          <app-button href="mailto:hello@example.com">Get in Touch</app-button>
+          <app-button href="/resume.pdf" variant="secondary">Download Resume</app-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills Section -->
+    <div class="mb-20 fade-in-up" appInView>
+      <h2 class="text-3xl font-bold text-center mb-12">
+        Skills & <span class="gradient-text">Technologies</span>
+      </h2>
+
+      <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+        @for (skill of skills; track skill.name; let i = $index) {
+          <div
+            class="glass glass-hover rounded-2xl p-4 flex flex-col items-center gap-3 cursor-default hover:-translate-y-1 hover:scale-105 transition-all duration-300 fade-in-scale"
+            appInView
+            [delay]="i * 50"
+          >
+            <div
+              class="w-12 h-12 rounded-xl flex items-center justify-center p-2.5"
+              [style.backgroundColor]="skill.color + '15'"
+            >
+              <app-skill-icon
+                [name]="skill.name"
+                [slug]="skill.slug"
+                [devicon]="skill.devicon"
+                [color]="skill.color"
+              />
+            </div>
+            <span class="text-sm font-medium text-gray-300">{{ skill.name }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Timeline Section -->
+    <div class="fade-in-up" appInView>
+      <h2 class="text-3xl font-bold text-center mb-12">
+        My <span class="gradient-text">Journey</span>
+      </h2>
+
+      <div class="relative">
+        <!-- Timeline line -->
+        <div
+          class="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-accent-500 via-purple-500 to-transparent"
+        ></div>
+
+        @for (item of timeline; track item.year; let i = $index) {
+          <div
+            class="relative flex items-center gap-8 mb-8 fade-in-up"
+            [class]="i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'"
+            appInView
+            [delay]="i * 200"
+          >
+            <!-- Timeline dot -->
+            <div
+              class="absolute left-0 md:left-1/2 w-4 h-4 -translate-x-1/2 rounded-full bg-accent-500 border-4 border-dark-900 z-10"
+            ></div>
+
+            <!-- Content -->
+            <div
+              class="ml-8 md:ml-0 md:w-1/2"
+              [class]="i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'"
+            >
+              <app-glass-card [hover]="false">
+                <div class="p-6">
+                  <span class="text-accent-400 font-bold text-lg">{{ item.year }}</span>
+                  <h3 class="text-xl font-semibold mt-1 mb-2">{{ item.title }}</h3>
+                  <p class="text-gray-400">{{ item.description }}</p>
+                </div>
+              </app-glass-card>
+            </div>
+
+            <!-- Spacer for alternating layout -->
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

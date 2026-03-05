@@ -1,0 +1,130 @@
+<!-- Hero Section -->
+<section
+  class="relative min-h-screen flex items-center justify-center overflow-hidden"
+>
+  <app-lava-lamp-background
+    [color]="'#f97316'"
+    [cursorBallColor]="'#fb923c'"
+    [opacity]="0.6"
+    [speed]="0.25"
+    [ballCount]="10"
+    [enableMouseInteraction]="true"
+    [cursorBallSize]="3"
+    [hoverSmoothness]="0.05"
+  />
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center pointer-events-none">
+    <div class="fade-in-up" appInView>
+      <p class="text-accent-400 font-medium mb-4 fade-in-up" appInView [delay]="200">
+        Hi, I'm
+      </p>
+
+      <h1 class="text-5xl md:text-7xl font-bold mb-6">
+        <span class="gradient-text">Joel</span>
+      </h1>
+
+      <p class="text-xl md:text-2xl text-gray-400 mb-8 max-w-2xl mx-auto">
+        A passionate developer crafting beautiful, interactive digital
+        experiences with modern web technologies.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4 pointer-events-auto">
+        <app-button to="/projects" size="lg">
+          View My Work
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            />
+          </svg>
+        </app-button>
+        <app-button to="/about" variant="secondary" size="lg">
+          About Me
+        </app-button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Projects Section -->
+<section class="py-20 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12 fade-in-up" appInView>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        Featured <span class="gradient-text">Projects</span>
+      </h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">
+        A selection of my favorite work. Each project represents a unique
+        challenge and creative solution.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (project of featuredProjects; track project.id; let i = $index) {
+        <div class="fade-in-up" appInView [delay]="i * 100">
+          <app-project-card [project]="project" />
+        </div>
+      }
+    </div>
+
+    <div class="text-center mt-12 fade-in-up" appInView [delay]="400">
+      <app-button to="/projects" variant="secondary">
+        View All Projects
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M14 5l7 7m0 0l-7 7m7-7H3"
+          />
+        </svg>
+      </app-button>
+    </div>
+  </div>
+</section>
+
+<!-- Skills Preview Section -->
+<section class="py-20 px-6 border-t border-white/5">
+  <div class="max-w-6xl mx-auto">
+    <div class="glass rounded-3xl p-8 md:p-12 fade-in-up" appInView>
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-4">
+            Let's build something
+            <span class="gradient-text">amazing</span>
+          </h2>
+          <p class="text-gray-400 mb-6">
+            I specialize in creating modern web applications with Angular,
+            immersive WebGL experiences with OGL, and beautiful interfaces with
+            cutting-edge CSS.
+          </p>
+          <app-button to="/about">Learn More About Me</app-button>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          @for (skill of ['Angular', 'WebGL', 'TypeScript', 'Node.js']; track skill; let i = $index) {
+            <div
+              class="glass rounded-xl p-4 text-center hover:bg-white/10 transition-colors fade-in-scale"
+              appInView
+              [delay]="i * 100"
+            >
+              <span class="font-medium">{{ skill }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

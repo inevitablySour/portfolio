@@ -1,0 +1,61 @@
+<section class="pt-32 pb-20 px-6">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-12 fade-in-up" appInView>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        My <span class="gradient-text">Projects</span>
+      </h1>
+      <p class="text-gray-400 max-w-2xl mx-auto">
+        Explore my portfolio of projects spanning web applications, games,
+        developer tools, and creative experiments.
+      </p>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="flex flex-wrap justify-center gap-2 mb-12 fade-in-up" appInView [delay]="200">
+      @for (category of categories; track category) {
+        <button
+          (click)="setCategory(category)"
+          class="relative px-5 py-2 rounded-xl text-sm font-medium transition-colors"
+          [class]="activeCategory === category
+            ? 'text-white bg-accent-500/20 border border-accent-500/30'
+            : 'text-gray-400 hover:text-white hover:bg-white/5'"
+        >
+          {{ category }}
+        </button>
+      }
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (project of filteredProjects; track project.id; let i = $index) {
+        <div class="fade-in-scale" appInView [delay]="i * 100">
+          <app-project-card [project]="project" />
+        </div>
+      }
+    </div>
+
+    <!-- Empty State -->
+    @if (filteredProjects.length === 0) {
+      <div class="text-center py-20">
+        <p class="text-gray-500">No projects found in this category.</p>
+      </div>
+    }
+
+    <!-- Stats -->
+    <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4">
+      @for (stat of stats; track stat.label; let i = $index) {
+        <div
+          class="glass rounded-2xl p-6 text-center fade-in-up"
+          appInView
+          [delay]="i * 100"
+        >
+          <div class="text-3xl font-bold gradient-text mb-1">
+            {{ stat.value }}
+          </div>
+          <div class="text-sm text-gray-400">{{ stat.label }}</div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
