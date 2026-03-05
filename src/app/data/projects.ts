@@ -53,7 +53,6 @@ export const projects: Project[] = [
     featured: true,
     links: {
       live: 'https://pes-id-app.onrender.com',
-      github: 'https://github.com/inevitablySour/pes-id-app',
     },
     year: 2025,
   },
