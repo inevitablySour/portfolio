@@ -28,7 +28,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
           </a>
 
           <!-- Desktop Navigation Links -->
-          <div class="hidden md:flex items-center gap-1">
+          <div class="hidden sm:flex items-center gap-1">
             @for (link of navLinks; track link.path) {
               <a
                 [routerLink]="link.path"
@@ -44,7 +44,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
           <!-- Desktop CTA Button -->
           <a
             href="mailto:hello@example.com"
-            class="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl bg-accent-500/20 text-accent-400 text-sm font-medium hover:bg-accent-500/30 transition-colors"
+            class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-accent-500/20 text-accent-400 text-sm font-medium hover:bg-accent-500/30 transition-colors"
           >
             <span>Contact</span>
             <svg
@@ -64,7 +64,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
           <!-- Mobile Hamburger -->
           <button
-            class="md:hidden flex items-center justify-center w-10 h-10 rounded-xl hover:bg-white/10 transition-colors"
+            class="sm:hidden flex items-center justify-center w-10 h-10 rounded-xl hover:bg-white/10 transition-colors"
             (click)="mobileOpen = !mobileOpen"
             aria-label="Toggle menu"
           >
@@ -82,7 +82,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
         <!-- Mobile Menu -->
         @if (mobileOpen) {
-          <div class="md:hidden glass rounded-2xl mt-2 px-4 py-3 flex flex-col gap-1 animate-menu-in">
+          <div class="sm:hidden glass rounded-2xl mt-2 px-4 py-3 flex flex-col gap-1 animate-menu-in">
             @for (link of navLinks; track link.path) {
               <a
                 [routerLink]="link.path"
