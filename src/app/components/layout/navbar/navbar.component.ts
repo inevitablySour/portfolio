@@ -43,7 +43,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
           <!-- Desktop CTA Button -->
           <a
-            href="mailto:hello@example.com"
+            href="mailto:joelkumi@protonmail.com"
             class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-accent-500/20 text-accent-400 text-sm font-medium hover:bg-accent-500/30 transition-colors"
           >
             <span>Contact</span>
@@ -95,7 +95,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
               </a>
             }
             <a
-              href="mailto:hello@example.com"
+              href="mailto:joelkumi@protonmail.com"
               class="px-4 py-3 rounded-xl text-sm font-medium text-accent-400 hover:bg-accent-500/10 transition-colors"
               (click)="mobileOpen = false"
             >
