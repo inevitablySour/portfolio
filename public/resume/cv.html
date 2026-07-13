@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Joel Kumi – CV</title>
+<style>
+  @page { size: 210mm 297mm; margin: 0; }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color-adjust: exact;
+  }
+
+  html, body {
+    width: 210mm;
+    min-height: 297mm;
+  }
+
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: white;
+    font-size: 8pt;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media print {
+    html, body {
+      width: 210mm;
+      height: 297mm;
+    }
+
+    .header, .profile-band, .blue-band, .additional,
+    .edu-entry, .entry, .project {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+  }
+
+  /* ── HEADER: navy, photo left + name right ── */
+  .header {
+    background: #0f2044;
+    padding: 13px 32px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+  }
+
+  .photo-placeholder {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .photo-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .name {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 26pt;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+  }
+  .title-line {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: #7eb8e8;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+
+  /* ── PROFILE BAND ── */
+  .profile-band {
+    background: #162d5a;
+    padding: 9px 32px;
+    width: 100%;
+  }
+  .profile-band p {
+    font-size: 8pt;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.55;
+  }
+
+  /* ── BODY ── */
+  .body {
+    padding: 12px 32px 12px;
+    width: 100%;
+    flex: 1;
+  }
+
+  /* ── TWO COL: contact + education ── */
+  .two-col {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 10px;
+  }
+  .two-col > div { flex: 1; }
+
+  /* ── SECTION HEADINGS (white sections) ── */
+  .sec-heading {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #0f2044;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 1.5px solid #0f2044;
+    padding-bottom: 2px;
+    margin-bottom: 6px;
+  }
+
+  /* ── BLUE SECTION HEADINGS (for skills/languages band) ── */
+  .blue-sec-heading {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #7eb8e8;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(91,155,213,0.35);
+    padding-bottom: 2px;
+    margin-bottom: 6px;
+  }
+
+  /* Contact */
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .contact-item { font-size: 7.5pt; color: #444; line-height: 1.5; }
+  .contact-item a { color: #2563a8; text-decoration: none; }
+
+  /* Education */
+  .edu-entry { margin-bottom: 6px; }
+  .edu-row { display: flex; justify-content: space-between; align-items: baseline; }
+  .edu-school { font-size: 8pt; font-weight: 700; color: #0f2044; }
+  .edu-date { font-size: 7pt; color: #888; font-style: italic; }
+  .edu-degree { font-size: 7.5pt; color: #2563a8; font-weight: 600; margin-top: 1px; }
+  .edu-note { font-size: 7pt; color: #888; margin-top: 1px; }
+
+  /* Experience & entries */
+  .section { margin-bottom: 10px; }
+  .entry { margin-bottom: 5px; }
+  .entry-header { display: flex; justify-content: space-between; align-items: baseline; }
+  .entry-title { font-size: 8.5pt; font-weight: 700; color: #0f2044; }
+  .entry-date { font-size: 7pt; color: #888; font-style: italic; }
+  .entry-sub { font-size: 7.5pt; color: #2563a8; font-weight: 600; margin-top: 1px; }
+  .bullets { margin-top: 3px; padding-left: 12px; }
+  .bullets li { font-size: 7.5pt; color: #444; line-height: 1.5; margin-bottom: 1.5px; }
+
+  /* Projects */
+  .project { margin-bottom: 7px; }
+  .proj-header { display: flex; justify-content: space-between; align-items: baseline; }
+  .proj-name { font-size: 8.5pt; font-weight: 700; color: #0f2044; }
+  .proj-year { font-size: 7pt; color: #888; font-style: italic; }
+  .proj-stack { font-size: 7pt; color: #2563a8; font-weight: 600; margin-top: 1px; }
+  .proj-divider { border: none; border-top: 1px solid #e5eaf2; margin: 5px 0; }
+
+  /* ── SKILLS + LANGUAGES BLUE BAND ── */
+  .blue-band {
+    background: #0f2044;
+    width: 100%;
+    padding: 10px 32px;
+    display: flex;
+    gap: 28px;
+  }
+
+  /* Skills takes ~75%, languages ~25% */
+  .skills-col { flex: 3; }
+  .lang-col { flex: 1; }
+
+  .skill-group { margin-bottom: 6px; }
+  .skill-group-label {
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 3px;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 3px; }
+  .tag {
+    background: #1e3a6e;
+    color: rgba(255,255,255,0.88);
+    font-size: 7pt;
+    padding: 3px 7px;
+    border-radius: 3px;
+    border: none;
+    font-weight: 500;
+  }
+
+  .lang-list { list-style: none; }
+  .lang-list li { font-size: 7.5pt; color: rgba(255,255,255,0.82); line-height: 1.7; }
+
+  /* ── ADDITIONAL ── */
+  .additional {
+    padding: 9px 32px 10px;
+    width: 100%;
+  }
+  .add-row { display: flex; justify-content: space-between; align-items: baseline; }
+  .add-title { font-size: 8pt; font-weight: 700; color: #0f2044; }
+  .add-date { font-size: 7pt; color: #888; font-style: italic; }
+  .add-sub { font-size: 7.5pt; color: #2563a8; font-weight: 600; margin-top: 1px; }
+</style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="photo-placeholder"><img src="cv-photo.jpeg" alt="Joel Kumi"></div>
+    <div>
+      <div class="name">Joel Kumi</div>
+      <div class="title-line">Data Science &amp; AI &nbsp;·&nbsp; Internship Candidate</div>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="profile-band">
+    <p>Second-year Applied Data Science &amp; AI student at Zuyd Hogeschool with hands-on experience building end-to-end ML systems, full-stack web applications, and automated deployment pipelines. My projects span computer vision, microservices architecture, and predictive modelling, all delivered in collaborative team settings. Seeking an internship to apply these skills in a real-world engineering environment.</p>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- CONTACT + EDUCATION -->
+    <div class="two-col" style="margin-top:4px;">
+      <div>
+        <div class="sec-heading">Contact</div>
+        <div class="contact-grid">
+          <div class="contact-item">+31 0639649480</div>
+          <div class="contact-item">Maastricht, Netherlands</div>
+          <div class="contact-item"><a href="mailto:joelkumi@protonmail.com">joelkumi@protonmail.com</a></div>
+          <div class="contact-item"><a href="https://inevitablysour.github.io/portfolio/#/">inevitablysour.github.io/portfolio</a></div>
+          <div class="contact-item"><a href="https://github.com/inevitablySour">github.com/inevitablySour</a></div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-heading">Education</div>
+        <div class="edu-entry">
+          <div class="edu-row">
+            <div class="edu-school">Zuyd Hogeschool</div>
+            <div class="edu-date">2024 – Present</div>
+          </div>
+          <div class="edu-degree">Applied Data Science &amp; AI &nbsp;·&nbsp; 2nd Year</div>
+          <div class="edu-note">Deep Learning &nbsp;·&nbsp; Machine Learning &nbsp;·&nbsp; Data Engineering</div>
+        </div>
+        <div class="edu-entry">
+          <div class="edu-row">
+            <div class="edu-school">International School of Beijing</div>
+            <div class="edu-date">May 2023</div>
+          </div>
+          <div class="edu-degree">High School Diploma</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="section">
+      <div class="sec-heading">Experience</div>
+      <div class="entry">
+        <div class="entry-header">
+          <div class="entry-title">Software Development Intern</div>
+          <div class="entry-date">Jun – Jul 2022</div>
+        </div>
+        <div class="entry-sub">HuaCai Technology</div>
+        <ul class="bullets">
+          <li>Shadowed senior developers building an e-commerce platform; applied Spring Boot through hands-on tasks after initial onboarding.</li>
+          <li>Gained insight into large-scale project architecture, version control workflows, and agile development processes.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="section">
+      <div class="sec-heading">Projects</div>
+      <p style="font-size: 7.5pt; color: #444; margin-bottom: 6px;">(Please see my portfolio <a href="https://inevitablysour.github.io/portfolio/#/" style="color: #2563a8; text-decoration: none;"><b><i>here</i></b></a>)</p>
+
+      <div class="project">
+        <div class="proj-header">
+          <div class="proj-name">Festi-Flow: Festival Safety &amp; Capacity Planning</div>
+          <div class="proj-year">2025</div>
+        </div>
+        <div class="proj-stack">Python · Monte Carlo Simulation · Panel · Pandas · NumPy · Plotly</div>
+        <ul class="bullets">
+          <li>Multi-objective simulation for festival crowd safety and capacity planning: zone density, gate/turnstile throughput, weather effects, and evacuation time, evaluated over 50-replication Monte Carlo runs.</li>
+          <li>Cost and staffing model grounded in real Dutch CAO Veiligheidsdomein 2025-2027 rates and SGSA safety ratios, with an automated "Find Best Configuration" sweep across evacuation times, stage counts, and zone layouts within budget.</li>
+          <li>Interactive Panel dashboard (Overview, Crowd Flow, Monte Carlo, Planning, Optimise) for configuring ticket tiers, venues, gates, and weather scenarios.</li>
+        </ul>
+      </div>
+
+      <hr class="proj-divider">
+
+      <div class="project">
+        <div class="proj-header">
+          <div class="proj-name">ASL Translator</div>
+          <div class="proj-year">2025</div>
+        </div>
+        <div class="proj-stack">Python · FastAPI · Docker · MediaPipe · Scikit-learn · PostgreSQL · RabbitMQ · GitHub Actions · Streamlit</div>
+        <ul class="bullets">
+          <li>Real-time American Sign Language recognition system translating static hand gestures (A–H) into text using computer vision and a Random Forest classifier.</li>
+          <li>Microservices architecture with FastAPI backend, RabbitMQ message broker, and Streamlit UI; deployed on Linux VM via GitHub Actions CI/CD with Cloudflare Tunnel.</li>
+          <li>Continuous learning pipeline that automatically retrains the model whenever sufficient user feedback is collected.</li>
+        </ul>
+      </div>
+
+      <hr class="proj-divider">
+
+      <div class="project">
+        <div class="proj-header">
+          <div class="proj-name">CMAS Motion Tracking System</div>
+          <div class="proj-year">2025</div>
+        </div>
+        <div class="proj-stack">Java · Python · Flask · MediaPipe · OpenCV · MySQL · Swing · JFreeChart · Maven</div>
+        <ul class="bullets">
+          <li>Desktop app automating Children's Myositis Assessment Scale scoring for children with JDM, enabling remote physiotherapy assessment without a doctor present.</li>
+          <li>Solely responsible for the full computer vision pipeline: designed all 14 exercise detection algorithms using real-time pose estimation (MediaPipe + OpenCV), analysing joint positions, movement duration, and range of motion.</li>
+          <li>Doctor dashboard with patient management, lab result tracking, medication group management, and CMAS score trend visualisation.</li>
+        </ul>
+      </div>
+
+      <hr class="proj-divider">
+
+      <div class="project">
+        <div class="proj-header">
+          <div class="proj-name">PES Membership System</div>
+          <div class="proj-year">2025</div>
+        </div>
+        <div class="proj-stack">Python · Flask · PostgreSQL · Mailjet · Cloudinary · Google APIs (Drive, Sheets) · ReportLab · Bootstrap</div>
+        <ul class="bullets">
+          <li>Full membership management platform for Maastricht University's Political Economic Society, live and in daily use by the PES board.</li>
+          <li>Multi-step signup, automated emails, QR-code digital ID cards (PDF via ReportLab), admin dashboard, Google Drive CV uploads, two-way Google Sheets sync, and audit logging.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div><!-- end .body -->
+
+  <!-- SKILLS + LANGUAGES: full-width blue band -->
+  <div class="blue-band">
+    <div class="skills-col">
+      <div class="blue-sec-heading">Skills</div>
+      <div class="skill-group">
+        <div class="skill-group-label">AI / ML</div>
+        <div class="skill-tags">
+          <span class="tag">Python</span><span class="tag">Scikit-learn</span><span class="tag">MediaPipe</span>
+          <span class="tag">OpenCV</span><span class="tag">XGBoost</span><span class="tag">LightGBM</span>
+          <span class="tag">Pandas</span><span class="tag">SMOTE</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Backend &amp; APIs</div>
+        <div class="skill-tags">
+          <span class="tag">FastAPI</span><span class="tag">Flask</span><span class="tag">Java</span>
+          <span class="tag">Spring Boot</span><span class="tag">RabbitMQ</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Data &amp; DevOps</div>
+        <div class="skill-tags">
+          <span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">Docker</span>
+          <span class="tag">GitHub Actions</span><span class="tag">CI/CD</span><span class="tag">Linux</span>
+          <span class="tag">Streamlit</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Web</div>
+        <div class="skill-tags">
+          <span class="tag">HTML5</span><span class="tag">Bootstrap</span>
+          <span class="tag">Google APIs</span><span class="tag">Cloudinary</span>
+        </div>
+      </div>
+    </div>
+    <div class="lang-col">
+      <div class="blue-sec-heading">Languages</div>
+      <ul class="lang-list">
+        <li>English</li>
+        <li>Albanian</li>
+        <li>Chinese</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ADDITIONAL -->
+  <div class="additional">
+    <div class="sec-heading">Additional</div>
+    <div class="add-row">
+      <div class="add-title">Machine Learning Summer Course</div>
+      <div class="add-date">Summer 2024</div>
+    </div>
+    <div class="add-sub">Columbia University (Online)</div>
+  </div>
+
+  <script>
+    if (new URLSearchParams(window.location.search).has('print')) {
+      window.addEventListener('load', () => window.print());
+    }
+  </script>
+
+</body>
+</html>
